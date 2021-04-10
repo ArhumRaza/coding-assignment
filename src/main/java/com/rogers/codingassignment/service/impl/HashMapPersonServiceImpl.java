@@ -10,7 +10,7 @@ import java.util.*;
 @Service
 public class HashMapPersonServiceImpl implements PersonService {
     private Map<Integer,Person> personMap = new HashMap<>();
-    private static int COUNTER_ID = 0;
+    private static int counterId = 0;
 
     @Override
     public List<Person> findAll() {
@@ -27,9 +27,9 @@ public class HashMapPersonServiceImpl implements PersonService {
 
     @Override
     public int save(Person person) {
-        COUNTER_ID++;
-        personMap.put(COUNTER_ID, person);
-        return COUNTER_ID;
+        counterId++;
+        personMap.put(counterId, person);
+        return counterId;
     }
 
     @Override
