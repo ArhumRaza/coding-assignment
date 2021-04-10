@@ -14,6 +14,4 @@ public interface PersonService {
 
     void update(int id, Person person);
 
-    //void delete(int id);
-
 }
