@@ -1,20 +1,10 @@
 package com.rogers.codingassignment.model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*
-Create an immutable class - Person
-age (short) ;
-name - String;
-dob - LocalDate;
-gender - Enum Class Male/Female/Other;
-List<String> address;
- */
 public class Person {
 
     private short age;
@@ -82,9 +72,6 @@ public class Person {
                 '}';
     }
 
-    /*
-        // Return the names of all teens (age 13 - 18) --> sort youngest to oldest
-         */
     public static List<String> teenagers(List<Person> people) {
 
         return people

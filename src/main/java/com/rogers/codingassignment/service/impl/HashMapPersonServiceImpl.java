@@ -1,37 +1,42 @@
 package com.rogers.codingassignment.service.impl;
 
-import com.rogers.codingassignment.model.Gender;
 import com.rogers.codingassignment.model.Person;
+import com.rogers.codingassignment.model.PersonNotFoundException;
 import com.rogers.codingassignment.service.PersonService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
 public class HashMapPersonServiceImpl implements PersonService {
+    private Map<Integer,Person> personMap = new HashMap<>();
+    private static int counterId = 0;
 
     @Override
     public List<Person> findAll() {
-       Person person = new Person((short) 18, "John", LocalDate.of(2002, 9,12), Gender.MALE, List.of());
-       List<Person> personList = new ArrayList<>();
-       personList.add(person);
-        return personList;
+       return new ArrayList<>(personMap
+               .values());
     }
 
     @Override
     public Person findById(int id) {
-        Person person = new Person((short) 18, "Bob", LocalDate.of(2002, 9,12), Gender.MALE, List.of());
-        return person;
+        return Optional
+                        .ofNullable(personMap.get(id))
+                        .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
     @Override
     public int save(Person person) {
-        return 0;
+        counterId++;
+        personMap.put(counterId, person);
+        return counterId;
     }
 
     @Override
     public void update(int id, Person person) {
-
+        Optional
+                .ofNullable(personMap.replace(id, person))
+                .orElseThrow(() -> new PersonNotFoundException(id));
     }
+
 }
