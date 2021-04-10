@@ -14,6 +14,7 @@ import java.util.List;
 class PersonController {
 
     private static final String URL_PATH_ID = "/{id}";
+    private int personId;
 
     @Autowired
     PersonService personService;
@@ -32,15 +33,12 @@ class PersonController {
 
     @PostMapping
     public ResponseEntity<String> createPerson(@RequestBody Person person) {
-//        System.out.println(person);
-        personService.save(person);
-        return ResponseEntity.created(URI.create("localhost:8080/person/123")).build();
+        personId = personService.save(person);
+        return ResponseEntity.created(URI.create("localhost:8080/person/" + personId)).build();
     }
 
     @PutMapping(URL_PATH_ID)
     public ResponseEntity<Void> updatePerson(@PathVariable int id, @RequestBody Person person) {
-//        System.out.println(id);
-//        System.out.println(person);
         personService.update(id,person);
         return ResponseEntity.noContent().build();
     }
