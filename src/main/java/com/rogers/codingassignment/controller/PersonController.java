@@ -34,7 +34,7 @@ class PersonController {
     @PostMapping
     public ResponseEntity<String> createPerson(@RequestBody Person person) {
         personId = personService.save(person);
-        return ResponseEntity.created(URI.create("localhost:8080/person/" + personId)).build();
+        return ResponseEntity.created(URI.create("http://localhost:8080/person/" + personId)).build();
     }
 
     @PutMapping(URL_PATH_ID)

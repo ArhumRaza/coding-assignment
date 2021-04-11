@@ -9,8 +9,8 @@ import java.util.*;
 
 @Service
 public class HashMapPersonServiceImpl implements PersonService {
-    private Map<Integer,Person> personMap = new HashMap<>();
-    private static int counterId = 0;
+    static Map<Integer,Person> personMap = new HashMap<>();
+    static int counterId = 0;
 
     @Override
     public List<Person> findAll() {
