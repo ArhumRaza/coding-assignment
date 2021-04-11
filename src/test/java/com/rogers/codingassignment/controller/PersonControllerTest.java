@@ -49,6 +49,7 @@ public class PersonControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].dob").value(Matchers.is(testPerson.getDob().toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].gender").value(Matchers.is(testPerson.getGender().toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].address").value(Matchers.is(testPerson.getAddress())));
+
     }
 
     @Test
@@ -59,7 +60,7 @@ public class PersonControllerTest {
         BDDMockito.given(personService.findById(id)).willReturn(testPerson);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/person/" + id))
+                MockMvcRequestBuilders.get("/person/" + id).accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(Matchers.is((int) testPerson.getAge())))
@@ -67,6 +68,7 @@ public class PersonControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dob").value(Matchers.is(testPerson.getDob().toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(Matchers.is(testPerson.getGender().toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.address").value(Matchers.is(testPerson.getAddress())));
+
     }
 
     @Test
@@ -80,6 +82,7 @@ public class PersonControllerTest {
                 MockMvcRequestBuilders.get("/person/" + id).accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+
     }
 
     @Test
