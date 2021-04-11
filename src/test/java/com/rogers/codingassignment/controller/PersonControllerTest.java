@@ -97,6 +97,7 @@ public class PersonControllerTest {
                 .put("name", "John")
                 .put("dob", LocalDate.of(1996, 02, 01).toString())
                 .put("gender", Gender.OTHER)
+//                .put("address", testPerson.getAddress().toArray()) //TODO
                 .toString();
 
         mockMvc.perform(

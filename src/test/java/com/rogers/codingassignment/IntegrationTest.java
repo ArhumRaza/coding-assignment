@@ -4,9 +4,7 @@ import com.rogers.codingassignment.model.Gender;
 import com.rogers.codingassignment.model.Person;
 import org.hamcrest.Matchers;
 import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,6 +21,7 @@ import java.util.List;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IntegrationTest {
 
     @Autowired
@@ -48,6 +47,7 @@ public class IntegrationTest {
     }
 
     @Test
+    @Order(1)
     @DisplayName("retrieve all person Integration Test")
     void retrievePerson() throws Exception {
 
@@ -63,6 +63,7 @@ public class IntegrationTest {
     }
 
     @Test
+    @Order(2)
     @DisplayName("retrieve person by id Integration Test")
     void retrievePersonById() throws Exception {
 
@@ -78,6 +79,7 @@ public class IntegrationTest {
     }
 
     @Test
+    @Order(3)
     @DisplayName("create person Integration Test")
     void createPerson() throws Exception {
 
@@ -97,6 +99,7 @@ public class IntegrationTest {
     }
 
     @Test
+    @Order(4)
     @DisplayName("update person - success Integration Test")
     void updatePerson() throws Exception {
 

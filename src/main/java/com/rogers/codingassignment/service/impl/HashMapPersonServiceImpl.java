@@ -9,6 +9,7 @@ import java.util.*;
 
 @Service
 public class HashMapPersonServiceImpl implements PersonService {
+
     static Map<Integer,Person> personMap = new HashMap<>();
     static int counterId = 0;
 
