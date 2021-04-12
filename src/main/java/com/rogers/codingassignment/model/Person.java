@@ -1,6 +1,10 @@
 package com.rogers.codingassignment.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,14 +20,23 @@ public class Person {
     private int id;
 
     private short age;
+
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String name;
+
+    @Past
+    @NotNull
     private LocalDate dob;
+
+    @NotNull
     private Gender gender;
 
     @ElementCollection
     private List<String> address = new ArrayList<>();
 
-    public Person(){
+    public Person() {
 
     }
 
