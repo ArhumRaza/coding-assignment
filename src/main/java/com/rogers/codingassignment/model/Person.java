@@ -1,17 +1,44 @@
 package com.rogers.codingassignment.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
+@Table
 public class Person {
 
+    @Id
+    @GeneratedValue
+    private int id;
+
     private short age;
+
+    @NotNull
+    @NotEmpty
+    @NotBlank
     private String name;
+
+    @Past
+    @NotNull
     private LocalDate dob;
+
+    @NotNull
     private Gender gender;
-    private List<String> address;
+
+    @ElementCollection
+    private List<String> address = new ArrayList<>();
+
+    public Person() {
+
+    }
 
     public Person(short age, String name, LocalDate dob, Gender gender, List<String> address) {
         this.age = age;
@@ -19,6 +46,14 @@ public class Person {
         this.dob = dob;
         this.gender = gender;
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public short getAge() {

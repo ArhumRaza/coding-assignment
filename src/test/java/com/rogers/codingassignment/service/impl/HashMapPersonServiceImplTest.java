@@ -55,8 +55,8 @@ public class HashMapPersonServiceImplTest {
     @DisplayName("update a person by id")
     public void update() {
         Person personOld = HashMapPersonServiceImpl.personMap.get(2);
-        Person personNew = new Person((short) 30, "Bob", LocalDate.of(1991, 02, 01), Gender.OTHER, List.of());
-        personService.update(2, personNew);
+        Person personUpdate = new Person((short) 30, "Bob", LocalDate.of(1991, 02, 01), Gender.OTHER, List.of());
+        personService.update(2, personUpdate);
         Assertions.assertNotEquals(HashMapPersonServiceImpl.personMap.get(2), personOld);
     }
 

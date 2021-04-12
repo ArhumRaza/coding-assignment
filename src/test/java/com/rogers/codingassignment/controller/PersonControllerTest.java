@@ -97,6 +97,7 @@ public class PersonControllerTest {
                 .put("name", "John")
                 .put("dob", LocalDate.of(1996, 02, 01).toString())
                 .put("gender", Gender.OTHER)
+//                .put("address", testPerson.getAddress().toArray()) //TODO
                 .toString();
 
         mockMvc.perform(
@@ -128,3 +129,21 @@ public class PersonControllerTest {
 
 
 }
+
+/*
+    @Test
+    @DisplayName("create person - invalid request body (400 bad request)")
+    void createPersonBadRequest() throws Exception {
+
+        String requestBody = new JSONObject()
+                .put("age", 4)
+                .put("dob", LocalDate.of(1996, 02, 01).toString())
+                .put("gender", Gender.OTHER)
+                .toString();
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isBadRequest());
+
+    }
+ */
