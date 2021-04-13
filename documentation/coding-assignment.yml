@@ -1,0 +1,146 @@
+openapi: '3.0'
+info:
+  description: |
+    This documentation is for a coding assignnment where a basic Restful API service was designed with the
+    functionalities to retrieve, create, and update a person. For the purpose of the assignment,
+    we are storing the person elements using Spring Boot's H2 in-memory database
+  version: '0.1'
+  title: Coding Assignment REST API
+  contact:
+    name: Arham Raza
+    email: arhumraza@msn.com
+    url: https://github.com/ArhumRaza/coding-assignment
+paths:
+  /person:
+    get:
+      description: |
+        Returns a collection of all persons that are currently stored in the database.
+      operationId: retrievePerson
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewPerson'
+    post:
+      description: Creates a new person in the database and receive their ID.
+      operationId: createPerson
+      requestBody:
+        description: Person to add to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPerson'
+      responses:
+        '201':
+          description: created
+          headers:
+            Location-ID-Path:
+              type: "string"
+              description: Location of person created
+              required: true
+              schema:
+                type: "string"
+        '400':
+          description: invalid user input
+  /person/{id}:
+    get:
+      description: Returns a user based on a single ID, if the user does not have access to the pet
+      operationId: retrievePersonById
+      parameters:
+        - name: id
+          in: path
+          description: ID of person to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description: invalid user input
+        '404':
+          description: invalid user id
+    put:
+      description: Updates a person in the database.
+      operationId: updatePerson
+      parameters:
+        - name: id
+          in: path
+          description: ID of person to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Person to add to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPerson'
+      responses:
+        '204':
+          description: no content
+        '400':
+          description: invalid user input
+        '404':
+          description: invalid user id
+
+components:
+  schemas:
+    Person:
+      allOf:
+        - $ref: '#/components/schemas/NewPerson'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: integer
+
+    NewPerson:
+      type: object
+      required:
+        - name
+        - dob
+        - gender
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        gender:
+          type: string
+          description: "Gender of the person"
+          enum:
+            - "MALE"
+            - "FEMALE"
+            - "OTHER"
+        dob:
+          type: string
+          description: Date of birth (yyyy-mm-dd)
+        address:
+          type: array
+          description: List of addresses
+          items:
+            type: string
+
+#    Error:
+#      type: object
+#      required:
+#        - code
+#        - message
+#      properties:
+#        code:
+#          type: integer
+#        message:
+#          type: string
+
