@@ -15,7 +15,7 @@ paths:
     get:
       description: |
         Returns a collection of all persons that are currently stored in the database.
-      operationId: retrievePerson
+      operationId: Retrieve a list of all person elements
       responses:
         '200':
           description: ok
@@ -50,7 +50,7 @@ paths:
   /person/{id}:
     get:
       description: Returns a user based on a single ID, if the user does not have access to the pet
-      operationId: retrievePersonById
+      operationId: Retrieve a person by their ID
       parameters:
         - name: id
           in: path
@@ -71,7 +71,7 @@ paths:
           description: invalid user id
     put:
       description: Updates a person in the database.
-      operationId: updatePerson
+      operationId: Update a person based on their ID
       parameters:
         - name: id
           in: path
