@@ -28,7 +28,7 @@ public class IntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private final Person testPerson = new Person((short) 20, "TestPerson", LocalDate.now(), Gender.MALE, List.of("OAKVILLE"));
+    private final Person testPerson = new Person((short) 20, "TestPerson", LocalDate.of(2000, 01, 01), Gender.MALE, List.of("OAKVILLE"));
 
     @BeforeEach
     void setUp() throws Exception{
@@ -38,7 +38,6 @@ public class IntegrationTest {
                 .put("name", testPerson.getName())
                 .put("dob", testPerson.getDob().toString())
                 .put("gender", testPerson.getGender())
-//                .put("address", testPerson.getAddress().toArray()) //TODO
                 .toString();
 
         mockMvc.perform(
@@ -59,7 +58,6 @@ public class IntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").value(Matchers.is(testPerson.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].dob").value(Matchers.is(testPerson.getDob().toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].gender").value(Matchers.is(testPerson.getGender().toString())));
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].address").value(Matchers.is(testPerson.getAddress()))); //TODO
 
     }
 
@@ -75,8 +73,6 @@ public class IntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(Matchers.is(testPerson.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dob").value(Matchers.is(testPerson.getDob().toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(Matchers.is(testPerson.getGender().toString())));
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.address").value(Matchers.is(testPerson.getAddress()))); //TODO
-
     }
 
     @Test
@@ -89,7 +85,6 @@ public class IntegrationTest {
                 .put("name", testPerson.getName())
                 .put("dob", testPerson.getDob().toString())
                 .put("gender", testPerson.getGender().toString())
-//                .put("address", testPerson.getAddress()) //TODO
                 .toString();
 
         mockMvc.perform(

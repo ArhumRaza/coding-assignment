@@ -27,7 +27,7 @@ paths:
                   $ref: '#/components/schemas/NewPerson'
     post:
       description: Creates a new person in the database and receive their ID.
-      operationId: createPerson
+      operationId: Create a person
       requestBody:
         description: Person to add to the database
         required: true
@@ -39,7 +39,7 @@ paths:
         '201':
           description: created
           headers:
-            Location-ID-Path:
+            Location:
               type: "string"
               description: Location of person created
               required: true

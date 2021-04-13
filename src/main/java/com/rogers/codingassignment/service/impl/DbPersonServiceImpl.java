@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Primary
@@ -37,7 +36,6 @@ public class DbPersonServiceImpl implements PersonService {
     @Override
     public void update(int id, Person person) {
         repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
-
         person.setId(id);
         repository.save(person);
     }
