@@ -14,14 +14,7 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public void handleConstaintViolations() {
-        // used to convert the 500 into 400
-        // https://stackoverflow.com/questions/58614373/how-to-convert-constraintviolationexception-500-error-to-400-bad-request
-    }
 
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    @ExceptionHandler(PersonNotFoundException.class)
-//    public void handlePersonNotFoundException() {
-//
-//    }
+    }
 
 }

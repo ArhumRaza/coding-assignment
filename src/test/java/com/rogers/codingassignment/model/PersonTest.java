@@ -13,9 +13,9 @@ public class PersonTest {
 
     private static final List<Person> personList = new ArrayList<>();
 
-    private static final Person youngestPerson = new Person((short) 15, "Youngest", LocalDate.now(), Gender.FEMALE, List.of());
-    private static final Person middlePerson = new Person((short) 17, "Middle", LocalDate.now(), Gender.MALE, List.of());
-    private static final Person oldestPerson = new Person((short) 20, "Oldest", LocalDate.now(), Gender.MALE, List.of());
+    private static final Person youngestPerson = new Person((short) 15, "Youngest", LocalDate.of(2000, 01, 01), Gender.FEMALE, List.of());
+    private static final Person middlePerson = new Person((short) 17, "Middle", LocalDate.of(2000, 01, 01), Gender.MALE, List.of());
+    private static final Person oldestPerson = new Person((short) 20, "Oldest", LocalDate.of(2000, 01, 01), Gender.MALE, List.of());
 
     @BeforeAll
     static void setUp(){

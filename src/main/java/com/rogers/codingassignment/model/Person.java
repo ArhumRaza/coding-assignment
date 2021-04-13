@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
+@Entity // For JPA to understand that this is the object we are storing in the JPA-based datastore
 @Table
 public class Person {
 
