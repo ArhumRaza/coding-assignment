@@ -73,6 +73,7 @@ public class HashMapPersonServiceImplTest {
         // person1 was mapped to id: 1 (see setUp)
         int id = 1;
         personService.delete(id); // testing only this function should suffice as we throw an error otherwise
+        Assertions.assertThrows(PersonNotFoundException.class, () -> personService.findById(id));
     }
 
 }

@@ -36,7 +36,7 @@ public class IntegrationTest {
                 .put("age", testPerson.getAge())
                 .put("name", testPerson.getName())
                 .put("dob", testPerson.getDob().toString())
-                .put("gender", testPerson.getGender())
+                .put("gender", testPerson.getGender().toString())
                 .toString();
 
         mockMvc.perform(

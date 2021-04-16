@@ -83,6 +83,7 @@ class DbPersonServiceImplTest {
     @DisplayName("delete person by id")
     public void delete() {
         BDDMockito.given(personRepository.findById(id)).willReturn(Optional.of(person1));
+        BDDMockito.doNothing().when(personRepository).deleteById(id);
         personService.delete(id);
     }
 
