@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.convert.DataSizeUnit;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -73,7 +72,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    @DisplayName("retrieve person - id not found -> 404")
+    @DisplayName("retrieve person - invalid ID - 404 not found")
     void retrievePersonIdNotFound() throws Exception {
         int id = 5;
 
@@ -98,7 +97,6 @@ public class PersonControllerTest {
                 .put("name", "John")
                 .put("dob", LocalDate.of(1996, 02, 01).toString())
                 .put("gender", Gender.OTHER)
-//                .put("address", testPerson.getAddress().toArray()) //TODO
                 .toString();
 
         mockMvc.perform(
@@ -139,6 +137,5 @@ public class PersonControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
     }
-
 
 }
