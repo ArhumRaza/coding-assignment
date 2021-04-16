@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.convert.DataSizeUnit;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -108,7 +109,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    @DisplayName("update person - person")
+    @DisplayName("update person - success")
     void updatePerson() throws Exception {
         int id = 1;
 
@@ -127,23 +128,17 @@ public class PersonControllerTest {
 
     }
 
-
-}
-
-/*
     @Test
-    @DisplayName("create person - invalid request body (400 bad request)")
-    void createPersonBadRequest() throws Exception {
+    @DisplayName("delete person - success")
+    void deletePerson() throws Exception {
+        int id = 1;
 
-        String requestBody = new JSONObject()
-                .put("age", 4)
-                .put("dob", LocalDate.of(1996, 02, 01).toString())
-                .put("gender", Gender.OTHER)
-                .toString();
+        BDDMockito.doNothing().when(personService).delete(id);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON).content(requestBody))
-                .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isBadRequest());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/person/" + id))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
 
     }
- */
+
+
+}

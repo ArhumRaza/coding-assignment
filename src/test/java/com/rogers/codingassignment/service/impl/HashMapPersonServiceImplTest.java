@@ -67,4 +67,12 @@ public class HashMapPersonServiceImplTest {
         Assertions.assertThrows(PersonNotFoundException.class, () -> personService.update(99, personUpdate));
     }
 
+    @Test
+    @DisplayName("delete person by id")
+    public void delete() {
+        // person1 was mapped to id: 1 (see setUp)
+        int id = 1;
+        personService.delete(id); // testing only this function should suffice as we throw an error otherwise
+    }
+
 }
