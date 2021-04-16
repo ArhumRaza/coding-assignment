@@ -39,4 +39,10 @@ public class DbPersonServiceImpl implements PersonService {
         person.setId(id);
         repository.save(person);
     }
+
+    @Override
+    public void delete(int id) {
+        repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+        repository.deleteById(id);
+    }
 }

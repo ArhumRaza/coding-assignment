@@ -43,4 +43,10 @@ class PersonController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping(URL_PATH_ID)
+    public ResponseEntity<Void> deletePerson(@PathVariable int id) {
+        personService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
