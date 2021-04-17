@@ -53,11 +53,11 @@ paths:
             schema:
               $ref: '#/components/schemas/NewPerson'
             example:
-              - name: Steve Smith
-                age: 21
-                gender: MALE
-                dob: "2000-03-15"
-                address: [ Scarborough, Ajax ]
+              name: Steve Smith
+              age: 21
+              gender: MALE
+              dob: "2000-03-15"
+              address: [ Scarborough, Ajax ]
       responses:
         '201':
           description: created
@@ -116,11 +116,11 @@ paths:
             schema:
               $ref: '#/components/schemas/NewPerson'
             example:
-              - name: Bob Smith
-                age: 20
-                gender: MALE
-                dob: "2001-03-15"
-                address: [ Toronto, Canada ]
+              name: Bob Smith
+              age: 20
+              gender: MALE
+              dob: "2001-03-15"
+              address: [ Toronto, Canada ]
       responses:
         '204':
           description: no content
