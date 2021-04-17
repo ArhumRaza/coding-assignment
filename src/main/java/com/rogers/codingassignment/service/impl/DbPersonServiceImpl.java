@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @Primary
+@Service
 public class DbPersonServiceImpl implements PersonService {
 
     @Autowired

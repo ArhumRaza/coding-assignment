@@ -3,6 +3,7 @@ package com.rogers.codingassignment.controller;
 import com.rogers.codingassignment.model.Person;
 import com.rogers.codingassignment.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +15,13 @@ import java.util.List;
 class PersonController {
 
     private static final String URL_PATH_ID = "/{id}";
-    private int personId;
 
     @Autowired
     PersonService personService;
+
+    @Autowired
+    @Qualifier("baseURL")
+    String baseURL;
 
     @GetMapping
     public ResponseEntity<List<Person>> retrieveAllPeople() {
@@ -33,8 +37,8 @@ class PersonController {
 
     @PostMapping
     public ResponseEntity<String> createPerson(@RequestBody Person person) {
-        personId = personService.save(person);
-        return ResponseEntity.created(URI.create("http://localhost:8080/person/" + personId)).build();
+        int personId = personService.save(person);
+        return ResponseEntity.created(URI.create(baseURL + "/person/" + personId)).build();
     }
 
     @PutMapping(URL_PATH_ID)
