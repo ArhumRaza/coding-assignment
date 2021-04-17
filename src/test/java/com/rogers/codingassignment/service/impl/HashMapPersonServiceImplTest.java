@@ -40,7 +40,7 @@ public class HashMapPersonServiceImplTest {
     @Test
     @DisplayName("find person by id- invalid id (person not found)")
     public void findByIdInvalidId() {
-        Assertions.assertThrows(PersonNotFoundException.class, () -> personService.findById(99)); //TODO - look into executables and passing lambda expressions
+        Assertions.assertThrows(PersonNotFoundException.class, () -> personService.findById(99));
     }
 
     @Test
@@ -65,6 +65,17 @@ public class HashMapPersonServiceImplTest {
     public void updateInvalidId() {
         Person personUpdate = new Person((short) 30, "Bobby", LocalDate.of(1991, 02, 01), Gender.OTHER, List.of());
         Assertions.assertThrows(PersonNotFoundException.class, () -> personService.update(99, personUpdate));
+    }
+
+    @Test
+    @DisplayName("delete person by id")
+    public void delete() {
+        // person1 was mapped to id: 1 (see setUp)
+        int id = 100;
+        HashMapPersonServiceImpl.personMap.put(id, person1);
+
+        personService.delete(id); // testing only this function should suffice as we throw an error otherwise
+        Assertions.assertThrows(PersonNotFoundException.class, () -> personService.findById(id));
     }
 
 }

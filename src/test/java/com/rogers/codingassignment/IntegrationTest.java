@@ -6,9 +6,11 @@ import org.hamcrest.Matchers;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,7 +38,7 @@ public class IntegrationTest {
                 .put("age", testPerson.getAge())
                 .put("name", testPerson.getName())
                 .put("dob", testPerson.getDob().toString())
-                .put("gender", testPerson.getGender())
+                .put("gender", testPerson.getGender().toString())
                 .toString();
 
         mockMvc.perform(
@@ -116,6 +118,21 @@ public class IntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(Matchers.is("John")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dob").value(Matchers.is(LocalDate.of(2000, 01,01).toString())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(Matchers.is(Gender.OTHER.toString())));
+
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("delete person - success Integration Test")
+    void delete() throws Exception {
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/person/1"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/person/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
 
     }
 

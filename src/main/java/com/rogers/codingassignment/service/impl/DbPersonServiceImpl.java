@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @Primary
+@Service
 public class DbPersonServiceImpl implements PersonService {
 
     @Autowired
@@ -38,5 +38,11 @@ public class DbPersonServiceImpl implements PersonService {
         repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
         person.setId(id);
         repository.save(person);
+    }
+
+    @Override
+    public void delete(int id) {
+        repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+        repository.deleteById(id);
     }
 }

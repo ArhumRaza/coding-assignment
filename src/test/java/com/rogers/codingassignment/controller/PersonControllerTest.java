@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -24,9 +26,13 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = PersonController.class)
+@TestPropertySource(locations = {"/application-test.properties"}) // grabs everything inside the file
 public class PersonControllerTest {
 
     private final Person testPerson  = new Person((short) 26, "John", LocalDate.of(1994, 9, 2), Gender.MALE, List.of("Oakville"));
+
+    @Value("${server.uri.url}")
+    private String baseURL;
 
     @Autowired
     private MockMvc mockMvc;
@@ -97,18 +103,17 @@ public class PersonControllerTest {
                 .put("name", "John")
                 .put("dob", LocalDate.of(1996, 02, 01).toString())
                 .put("gender", Gender.OTHER)
-//                .put("address", testPerson.getAddress().toArray()) //TODO
                 .toString();
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/person").contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.header().string("Location", "http://localhost:8080/person/" + id));
+                .andExpect(MockMvcResultMatchers.header().string("Location", baseURL + "/person/" + id));
 
     }
 
     @Test
-    @DisplayName("update person - person")
+    @DisplayName("update person - success")
     void updatePerson() throws Exception {
         int id = 1;
 
@@ -127,5 +132,16 @@ public class PersonControllerTest {
 
     }
 
+    @Test
+    @DisplayName("delete person - success")
+    void deletePerson() throws Exception {
+        int id = 1;
+
+        BDDMockito.doNothing().when(personService).delete(id);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/person/" + id))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+    }
 
 }

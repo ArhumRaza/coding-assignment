@@ -40,4 +40,10 @@ public class HashMapPersonServiceImpl implements PersonService {
                 .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
+    @Override
+    public void delete(int id) {
+        Optional
+                .ofNullable(personMap.remove(id))
+                .orElseThrow(() -> new PersonNotFoundException(id));
+    }
 }
