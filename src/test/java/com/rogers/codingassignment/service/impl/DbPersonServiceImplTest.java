@@ -45,8 +45,16 @@ class DbPersonServiceImplTest {
         Assertions.assertEquals(personList.size(), 2);
 
         Assertions.assertEquals(personList.get(0).getName(), personEntity1.getName());
+        Assertions.assertEquals(personList.get(0).getAge(), personEntity1.getAge());
+        Assertions.assertEquals(personList.get(0).getDob(), personEntity1.getDob());
+        Assertions.assertEquals(personList.get(0).getGender(), personEntity1.getGender());
+        Assertions.assertEquals(personList.get(0).getAddress(), personEntity1.getAddress());
 
         Assertions.assertEquals(personList.get(1).getName(), personEntity2.getName());
+        Assertions.assertEquals(personList.get(1).getAge(), personEntity2.getAge());
+        Assertions.assertEquals(personList.get(1).getDob(), personEntity2.getDob());
+        Assertions.assertEquals(personList.get(1).getGender(), personEntity2.getGender());
+        Assertions.assertEquals(personList.get(1).getAddress(), personEntity2.getAddress());
     }
 
     @Test

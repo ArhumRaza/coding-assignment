@@ -1,6 +1,5 @@
 package com.rogers.codingassignment.controller;
 
-import com.rogers.codingassignment.model.PersonNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

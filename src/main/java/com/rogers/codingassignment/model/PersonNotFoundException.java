@@ -9,4 +9,5 @@ public class PersonNotFoundException extends RuntimeException{
     public PersonNotFoundException(int id) {
         super(new StringBuilder().append("Person with id: ").append(id).append(" does not exist").toString());
     }
+
 }
