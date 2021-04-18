@@ -2,6 +2,7 @@ package com.rogers.codingassignment.service.impl;
 
 import com.rogers.codingassignment.model.Person;
 import com.rogers.codingassignment.model.PersonNotFoundException;
+import com.rogers.codingassignment.repository.PersonEntity;
 import com.rogers.codingassignment.repository.PersonRepository;
 import com.rogers.codingassignment.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Primary
 @Service
@@ -19,25 +22,34 @@ public class DbPersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> findAll() {
-        return repository.findAll();
+
+        return repository
+                        .findAll()
+                        .stream()
+                        .map(mapToPerson)
+                        .collect(Collectors.toList());
     }
 
     @Override
     public Person findById(int id) {
-        return repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+
+        PersonEntity personEntity = repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+        return mapToPerson.apply(personEntity);
     }
 
     @Override
     public int save(Person person) {
-        Person p = repository.save(person);
-        return p.getId();
+        PersonEntity personEntity = mapToPersonEntity.apply(person);
+        personEntity = repository.save(personEntity);
+        return personEntity.getId();
     }
 
     @Override
     public void update(int id, Person person) {
         repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
-        person.setId(id);
-        repository.save(person);
+        PersonEntity personEntity = mapToPersonEntity.apply(person);
+        personEntity.setId(id);
+        repository.save(personEntity);
     }
 
     @Override
@@ -45,4 +57,16 @@ public class DbPersonServiceImpl implements PersonService {
         repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
         repository.deleteById(id);
     }
+
+    private static final Function<PersonEntity, Person> mapToPerson = personEntity -> {
+                    Person person = new Person(personEntity.getAge(), personEntity.getName(), personEntity.getDob(), personEntity.getGender(), personEntity.getAddress());
+                    person.setId(personEntity.getId());
+                    return person;
+    };
+
+    private static final Function<Person, PersonEntity> mapToPersonEntity = person -> {
+        PersonEntity personEntity = new PersonEntity(person.getAge(), person.getName(), person.getDob(), person.getGender(), person.getAddress());
+        return personEntity;
+    };
+
 }

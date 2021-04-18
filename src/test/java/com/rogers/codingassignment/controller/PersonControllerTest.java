@@ -141,7 +141,6 @@ public class PersonControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/person/" + id))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
-
     }
 
 }

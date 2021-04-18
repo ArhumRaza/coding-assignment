@@ -1,4 +1,6 @@
-package com.rogers.codingassignment.model;
+package com.rogers.codingassignment.repository;
+
+import com.rogers.codingassignment.model.Gender;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,32 +13,30 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Person {
+@Entity // For JPA to understand that this is the object we are storing in the JPA-based datastore
+@Table
+public class PersonEntity {
 
+    @Id
+    @GeneratedValue
     private int id;
 
     private short age;
 
-    @NotNull
-    @NotEmpty
-    @NotBlank
     private String name;
 
-    @Past
-    @NotNull
     private LocalDate dob;
 
-    @NotNull
     private Gender gender;
 
     @ElementCollection
     private List<String> address = new ArrayList<>();
 
-    public Person() {
+    public PersonEntity() {
 
     }
 
-    public Person(short age, String name, LocalDate dob, Gender gender, List<String> address) {
+    public PersonEntity(short age, String name, LocalDate dob, Gender gender, List<String> address) {
         this.age = age;
         this.name = name;
         this.dob = dob;
@@ -103,13 +103,13 @@ public class Person {
                 '}';
     }
 
-    public static List<String> teenagers(List<Person> people) {
+    public static List<String> teenagers(List<PersonEntity> people) {
 
         return people
                 .stream()
                 .filter(person -> person.getAge() > 13 && person.getAge() < 18)
-                .sorted(Comparator.comparingInt(Person::getAge))
-                .map(Person::getName)
+                .sorted(Comparator.comparingInt(PersonEntity::getAge))
+                .map(PersonEntity::getName)
                 .collect(Collectors.toList());
     }
 
